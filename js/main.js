@@ -17,9 +17,28 @@
 // ! RACCONLTA DATI
 
 // * il numero di chilometri che l'utente vuole percorrere
-const chilometriPercorsi = prompt("Chilometri che intende percorrere");
+const chilometriPercorsi = parseFloat(
+  prompt("Chilometri che intende percorrere")
+);
+
+// * controllo che sia valida
+const isChilometriPercorsiValid =
+  !isNaN(chilometriPercorsi) && chilometriPercorsi > 0;
+if (!isChilometriPercorsiValid) {
+  alert("Il valore inserito non è valido");
+}
+console.log(chilometriPercorsi);
+
 // * l'età del passeggero
-const etaPasseggero = prompt("Eta del passeggero");
+const etaPasseggero = parseInt(prompt("Eta del passeggero"));
+
+// * controllo che sia valida
+const isetaPasseggeroValid = !isNaN(etaPasseggero) && etaPasseggero > 0;
+if (!isetaPasseggeroValid) {
+  alert("Il valore inserito non è valido");
+}
+
+console.log(etaPasseggero);
 
 // * preparo una variabile per il messaggio (calcolo il prezzo)
 let outputMessage;
@@ -30,10 +49,30 @@ let outputMessage;
 
 // * controllo il prezzo in base ai km (0.21 € al km)
 
-// * controllo se l'utente è minorenne applicare sconto del 20%
-// * controllo se l'utente è over 65 applicare sconto del 40%
+const prezzoKm = 0.21;
+
+let prezzoIniziale = chilometriPercorsi * prezzoKm;
+
+console.log(prezzoIniziale);
+
+// * controllo se l'utente è minorenne applicare sconto del 20% se invece è over 65 applicare sconto del 40%
+
+if (etaPasseggero < 18) {
+  sconto = (prezzoIniziale * 20) / 100; // Sconto 20% per i minorenni
+  console.log(sconto);
+  prezzoFinale = prezzoIniziale - sconto;
+} else if (etaPasseggero > 65) {
+  sconto = (prezzoIniziale * 40) / 100; // Sconto 40% per over 65
+  console.log(sconto);
+  prezzoFinale = prezzoIniziale - sconto;
+}
+
 // * il prezzo finale in decimali
 
-// ! OUTPUT
+let prezzoFormattato = prezzoFinale.toFixed(2);
 
-// * Stampo il prezzo
+// ! OUTPUT Stampo il prezzo
+const prezzoStampato = `Il prezzo del biglietto è: ${prezzoFormattato} €`;
+console.log(prezzoStampato);
+
+alert(`Il prezzo del biglietto è: ${prezzoFormattato} €`);
